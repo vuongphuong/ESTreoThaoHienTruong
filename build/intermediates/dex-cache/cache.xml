@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\My_PC\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.11.0\840897fcd7223a8143f1d9b6f69714e7be34fd50\okio-1.11.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="840897fcd7223a8143f1d9b6f69714e7be34fd50">
+        <dex dex="C:\Users\My_PC\Documents\EsTreothaoHienTruong\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.11.0_59e8cf6c48b96ddb2b9ab857a1c71bf98c24c29f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\My_PC\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.1\2a8e0aa38a2e21cb39e2f5a7d6704cbdc941da0\gson-2.8.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="02a8e0aa38a2e21cb39e2f5a7d6704cbdc941da0">
+        <dex dex="C:\Users\My_PC\Documents\EsTreothaoHienTruong\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.8.1_8c849e52aebe5d21e97863d03f9c2dac5650cb0e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\My_PC\Documents\EsTreothaoHienTruong\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\My_PC\Documents\EsTreothaoHienTruong\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_c9faaba9a9063e886f0de35e4fcfdcab52ffb4fb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\My_PC\Documents\EsTreothaoHienTruong\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="358cf87927a88947f4559efdc49846d26e34126b">
+        <dex dex="C:\Users\My_PC\Documents\EsTreothaoHienTruong\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_0c688bdd5f70e280b12961fd91e81ad914bf9c14\classes.dex" />
+    </item>
+
+</items>

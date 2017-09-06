@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">EsTreothaoHienTruong</string>
+    <string name="app_name_full">Treo tháo hiện trường\n Hưng Yên PC</string>
+    <string name="password">Mật khẩu</string>
+    <string name="username">Tên đăng nhập</string>
+    <string name="login">Đăng nhập</string>
+    <string name="ip">Địa chỉ máy chủ</string>
+    <string name="data_management">Quản lý dữ liệu</string>
+    <string name="data_verify">Đối soát dữ liệu</string>
+    <string name="error">Đã xảy ra lỗi!</string>
+    <string name="common_ok">Đồng ý</string>
+    <string name="common_cancel">Hủy</string>
+    //===========================================================
+    <string name="main_font">Arial</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_sync"
+            android:icon="@drawable/ic_cloud_download_black_36dp"
+            android:title="Đồng bộ dữ liệu" />
+        <item
+            android:id="@+id/nav_historySync"
+            android:icon="@drawable/ic_sync_black_36dp"
+            android:title="Lịch sử đồng bộ" />
+        <item
+            android:id="@+id/nav_"
+            android:icon="@drawable/ic_print_black_24dp"
+            android:title="Trạng thái kết nối" />
+
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/ic_settings_bluetooth_black_24dp"
+            android:title="Thống kê treo tháo" />
+        <item
+            android:id="@+id/nav_changePass"
+            android:icon="@drawable/ic_vpn_key_black_24dp"
+            android:title="Thay đổi mật khẩu" />
+
+
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="Đăng xuất" />
+    </group>
+</menu>

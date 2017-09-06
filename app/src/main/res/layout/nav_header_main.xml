@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_40sdp"
+    android:paddingBottom="@dimen/_10sdp"
+    android:paddingLeft="@dimen/_20sdp"
+    android:paddingRight="@dimen/_20sdp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <TextView
+        android:id="@+id/nav_show_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phùng Quang Thanh"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/_24sdp" />
+
+    <TextView
+        android:id="@+id/nav_show_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SĐT: 0132546875"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/_18sdp" />
+
+    <TextView
+        android:id="@+id/nav_show_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email: esolutions@gmail.com"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/_18sdp" />
+
+    <TextView
+        android:id="@+id/nav_show_management"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Điện lực Hoàn Kiếm"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/_18sdp" />
+</LinearLayout>
