@@ -1,13 +1,21 @@
 package com.es.estreothaohientruong.UserInterface.Login;
 
-
+import com.es.estreothaohientruong.Data.Base.BaseResponse;
+import com.es.estreothaohientruong.Data.Base.ResponseListener;
+import com.es.estreothaohientruong.Data.Request.LoginRequest;
+import com.es.estreothaohientruong.Data.Response.LoginResponse;
+import com.es.estreothaohientruong.Helper.Common;
 import com.es.estreothaohientruong.Helper.CurrentPrefers;
+import com.es.estreothaohientruong.Helper.Singleton;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * Created by My_PC on 9/5/2017.
  */
 
-public class LoginPresenter implements ILoginPresenter {
+public class LoginPresenter implements ILoginPresenter,ResponseListener {
     private CurrentPrefers currentPrefers;
     private ILoginView iLoginView;
 
@@ -53,6 +61,30 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     private void getDataLogin(String userName, String password) {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUserName(userName);
+        loginRequest.setPassword(password);
+        loginRequest.setIdCompany(Singleton.getInstance().IdCompany);
+        loginRequest.setImei(Common.GetIMEI(iLoginView.getContextView()));
+        iLoginView.getApi().login(Common.REQUEST_LOGIN, loginRequest, this);
+    }
 
+    @Override
+    public BaseResponse parse(int requestId, Call call, Response response) throws Exception {
+        return new LoginResponse(response);
+    }
+
+    @Override
+    public void onResponse(int requestId, BaseResponse response) {
+        if (requestId == Common.REQUEST_LOGIN){
+            LoginResponse loginResponse = (LoginResponse) response;
+            Singleton.getInstance().idCustomer = loginResponse.getId();
+            iLoginView.loginSuccess();
+        }
+    }
+
+    @Override
+    public void onError(int requestId, Exception e) {
+            iLoginView.showLoginErorService(requestId,e);
     }
 }

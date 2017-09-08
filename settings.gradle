@@ -1,1 +1,1 @@
-include ':app', ':library', ':okhttp'
+include ':app', ':okhttp'

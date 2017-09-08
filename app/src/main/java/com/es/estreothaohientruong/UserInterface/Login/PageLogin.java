@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 
+import com.es.estreothaohientruong.Helper.Singleton;
 import com.es.estreothaohientruong.R;
 import com.es.estreothaohientruong.UserInterface.Base.BaseFragment;
 
@@ -17,6 +19,8 @@ import com.es.estreothaohientruong.UserInterface.Base.BaseFragment;
  */
 
 public class PageLogin extends BaseFragment {
+    private static EditText edUserName;
+    private static EditText edPassword;
     //region Activity Life Cycle
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,13 +34,14 @@ public class PageLogin extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
-
     }
 
 //endregion
 
     //region Init View
     public void initialize(View view){
+        edUserName = (EditText) view.findViewById(R.id.page_login_et_username);
+        edPassword = (EditText) view.findViewById(R.id.page_login_et_password);
     }
 
 
@@ -48,6 +53,10 @@ public class PageLogin extends BaseFragment {
 //endregion
 
     //region Control Action
+    public void getData(){
+        Singleton.getInstance().userName = edUserName.getText().toString();
+        Singleton.getInstance().password = edPassword.getText().toString();
+    }
 
 //endregion
 

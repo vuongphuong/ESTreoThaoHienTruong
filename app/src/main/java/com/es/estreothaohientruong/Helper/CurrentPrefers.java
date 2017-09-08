@@ -14,7 +14,8 @@ public class CurrentPrefers extends BasePrefers {
     private static final String KEY_USER_NAME = "user_name";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_SAVE_PASS = "key_save_password";
-    private static final String KEY_RESULT = "key_result";
+    private static final String KEY_ID_COMPANY = "key_id_company";
+    private static final String KEY_IP = "key_ip";
 
     // Employee
     private static final String KEY_EMP_INFO = "key_employee_info";
@@ -46,7 +47,7 @@ public class CurrentPrefers extends BasePrefers {
         return getPreferences().getString(KEY_USER_NAME, "");
     }
 
-    //----------------Token------------------------
+    //----------------Password------------------------
     public void savePassword(String password) {
         getEditor().putString(KEY_PASSWORD, password).commit();
     }
@@ -64,13 +65,22 @@ public class CurrentPrefers extends BasePrefers {
         return getPreferences().getBoolean(KEY_SAVE_PASS, true);
     }
 
-    //----------------code employees----------------
-    public void saveCode(String code) {
-        getEditor().putString(KEY_RESULT, code).commit();
+    //----------------id company----------------
+    public void saveIDCompany(String id) {
+        getEditor().putString(KEY_ID_COMPANY, id).commit();
     }
 
-    public String getCode() {
-        return getPreferences().getString(KEY_RESULT, "");
+    public String getidCompany() {
+        return getPreferences().getString(KEY_ID_COMPANY, "");
+    }
+
+    //----------------ip----------------
+    public void saveIP(String ip) {
+        getEditor().putString(KEY_IP, ip).commit();
+    }
+
+    public String getIP() {
+        return getPreferences().getString(KEY_IP, "");
     }
 
 

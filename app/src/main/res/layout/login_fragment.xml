@@ -51,6 +51,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@drawable/btn_detail_white"
+        android:textColor="@color/colorWhite"
+        android:paddingLeft="@dimen/_20sdp"
+        android:paddingRight="@dimen/_20sdp"
         android:text="@string/login" />
 
     <View

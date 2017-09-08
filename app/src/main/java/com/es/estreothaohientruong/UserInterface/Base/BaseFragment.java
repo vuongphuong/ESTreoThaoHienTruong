@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.es.estreothaohientruong.App;
 import com.es.estreothaohientruong.Data.Response.Api;
+import com.es.estreothaohientruong.Data.SQLiteConnection.SQLiteConnection;
 
 
 /**
@@ -20,6 +21,7 @@ public class BaseFragment extends Fragment {
     protected NativeManager mNativeManager;
     protected ProgressDialog mProgressDialog;
     protected Api mApi;
+    protected SQLiteConnection connection;
     InputMethodManager imm;
 
     //region fragment lifecycle
@@ -35,6 +37,7 @@ public class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApi = App.get().getApi();
+        connection = App.get().getConnection();
     }
 
     @Override

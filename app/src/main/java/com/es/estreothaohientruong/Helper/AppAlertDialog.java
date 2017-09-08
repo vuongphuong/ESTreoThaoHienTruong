@@ -2,9 +2,16 @@ package com.es.estreothaohientruong.Helper;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.es.estreothaohientruong.R;
 import com.es.estreothaohientruong.Data.Base.errors.Error;
@@ -55,5 +62,48 @@ public class AppAlertDialog {
             builder.setPositiveButton(R.string.common_cancel, cancelClick);
         }
         return builder.create();
+    }
+    public static void showAlertDialogGreen(Context context, String title, int title_color, String content, int content_color, String button, int button_color){
+        try{
+            final Dialog dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.invoice_dialog);
+            dialog.getWindow().setLayout(android.app.ActionBar.LayoutParams.MATCH_PARENT,android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            dialog.setCanceledOnTouchOutside(false);
+
+            TextView tvTitle = (TextView) dialog.findViewById(R.id.tvTitle);
+            TextView tvBody = (TextView) dialog.findViewById(R.id.tvBody);
+            LinearLayout lnButton = (LinearLayout) dialog.findViewById(R.id.lnButton);
+
+            tvBody.setTextColor(content_color);
+            tvTitle.setText(title);
+            tvTitle.setTextColor(title_color);
+            tvBody.setText(content);
+
+            TextView tvClose = new TextView(context);
+            tvClose.setText(button);
+            tvClose.setTextColor(button_color);
+            tvClose.setTypeface(null, Typeface.BOLD);
+            tvClose.setPadding(10, 10, 20, 10);
+            tvClose.setTextSize(20);
+            tvClose.setGravity(Gravity.RIGHT);
+            lnButton.setGravity(Gravity.RIGHT);
+            lnButton.addView(tvClose, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            tvClose.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            Window window = dialog.getWindow();
+            window.setGravity(Gravity.BOTTOM);
+
+            dialog.show();
+        } catch(Exception ex) {
+
+        }
     }
 }

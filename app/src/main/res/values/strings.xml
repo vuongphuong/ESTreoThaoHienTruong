@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EsTreothaoHienTruong</string>
+    <string name="app_name">Treo Tháo Hiện Trường</string>
     <string name="app_name_full">Treo tháo hiện trường\n Hưng Yên PC</string>
     <string name="password">Mật khẩu</string>
     <string name="username">Tên đăng nhập</string>
@@ -8,6 +8,8 @@
     <string name="data_management">Quản lý dữ liệu</string>
     <string name="data_verify">Đối soát dữ liệu</string>
     <string name="error">Đã xảy ra lỗi!</string>
+    <string name="error1">Lỗi!</string>
+    <string name="error2">Sai thông tin cấu hình.\nVui lòng kiểm tra lại hoặc liên hệ nhân viên hỗ trợ!</string>
     <string name="common_ok">Đồng ý</string>
     <string name="common_cancel">Hủy</string>
     //===========================================================

@@ -6,4 +6,12 @@
     <color name="colorBlue">#63c0fe</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
+
+
+    <color name="button_dark">#0b598b</color>
+    <color name="button_light">#348ec9</color>
+    <color name="button_press_dark">#044a78</color>
+    <color name="button_press_light">#1578b7</color>
+    <color name="button_disable_dark">#7e7e7e</color>
+    <color name="button_disable_light">#b4b4b4</color>
 </resources>
