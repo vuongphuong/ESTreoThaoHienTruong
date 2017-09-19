@@ -8,27 +8,34 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.es.estreothaohientruong.Data.Base.errors.AuthFailureError;
 import com.es.estreothaohientruong.Data.Base.errors.ParserError;
 import com.es.estreothaohientruong.Data.Base.errors.ServerError;
-import com.es.estreothaohientruong.Data.Response.Api;
+import com.es.estreothaohientruong.Data.Entities.ManagementUnitEntity;
+import com.es.estreothaohientruong.Data.Api;
+import com.es.estreothaohientruong.Data.SQLiteConnection.SQLiteConnection;
 import com.es.estreothaohientruong.Helper.AppAlertDialog;
 import com.es.estreothaohientruong.Helper.AppLog;
 import com.es.estreothaohientruong.Helper.Common;
+import com.es.estreothaohientruong.Helper.CurrentPrefers;
 import com.es.estreothaohientruong.Helper.PermissionGrant;
 import com.es.estreothaohientruong.Helper.Singleton;
 import com.es.estreothaohientruong.MainActivity;
 import com.es.estreothaohientruong.R;
 import com.es.estreothaohientruong.UserInterface.Base.BaseFragment;
+
+import java.util.ArrayList;
 
 
 /**
@@ -36,17 +43,24 @@ import com.es.estreothaohientruong.UserInterface.Base.BaseFragment;
  */
 
 public class LoginFragment extends BaseFragment implements View.OnClickListener, ILoginView {
-    ViewPager vpLogin;
     CheckBox cbSave;
     Button btnLogin;
-    LoginVPAdapter loginVPAdapter;
+    EditText edUserName, edPassword;
+    private TextView tvIP;
+    private Spinner spMnUnit;
     LoginPresenter loginPresenter;
+    ArrayAdapter<ManagementUnitEntity> adapterDvi;
+    private ArrayList<ManagementUnitEntity> managementUnitEntities;
 
     //region Activity Life Cycle
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loginPresenter = new LoginPresenter(this);
+        hideKeyboard();
+        if (!PermissionGrant.checkSelfPermission(getContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE})) {
+            PermissionGrant.verify(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Common.READ_EXTERNAL_STORAGE);
+        }
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,45 +71,63 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
-
     }
 
 //endregion
 
     //region Init View
     public void initialize(View view) {
-        vpLogin = (ViewPager) view.findViewById(R.id.f_login_vp);
+        managementUnitEntities = new ArrayList<>();
         cbSave = (CheckBox) view.findViewById(R.id.f_login_cbSavePass);
+        tvIP = (TextView) view.findViewById(R.id.f_login_tvIP);
         btnLogin = (Button) view.findViewById(R.id.f_login_btnLogin);
-        loginVPAdapter = new LoginVPAdapter(getChildFragmentManager());
-        vpLogin.setAdapter(loginVPAdapter);
+        edUserName = (EditText) view.findViewById(R.id.page_login_et_username);
+        edPassword = (EditText) view.findViewById(R.id.page_login_et_password);
+        spMnUnit = (Spinner) view.findViewById(R.id.page_sync_spSync);
         btnLogin.setOnClickListener(this);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.f_login_TabLayout);
-        tabLayout.setupWithViewPager(vpLogin, true);
+        spMnUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Singleton.getInstance().IdCompany = managementUnitEntities.get(position).getMA_DVIQLY();
+                CurrentPrefers.getInstance().saveIDCompany(managementUnitEntities.get(position).getMA_DVIQLY());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        tvIP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PageSync pageSync = new PageSync();
+                mNativeManager.switchPage(pageSync, "page sync");
+            }
+        });
+        loginPresenter.showInfoSharePrefLogin();
+        connection = SQLiteConnection.getInstance(getContext());
+        managementUnitEntities.addAll(connection.getDataDVIQLY());
+        adapterDvi = new ArrayAdapter<ManagementUnitEntity>(getContext(), R.layout.simple_item_list, managementUnitEntities);
+        spMnUnit.setAdapter(adapterDvi);
+        for (int i = 0; i < managementUnitEntities.size(); i++) {
+            if (managementUnitEntities.get(i).getMA_DVIQLY().equals(CurrentPrefers.getInstance().getidCompany())) {
+                spMnUnit.setSelection(i);
+            }
+        }
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.f_login_btnLogin) {
-//            if (cbSave.isChecked()) {
-//                loginPresenter.writeSharedPrefLogin(userName, pass);
-//            } else
-//                loginPresenter.clearSharedPrefLogin();
-            int count = loginVPAdapter.getCount();
-            for(int i=0;i<count;i++){
-                Fragment fragment = loginVPAdapter .getItem(i);
-                if(fragment instanceof PageLogin){
-                    ((PageLogin)fragment).getData();
-                    break;
-                }
-                else if(fragment instanceof PageSync){
-
-                    break;
-                }
+            if (cbSave.isChecked()) {
+                loginPresenter.writeSharedPrefLogin(edUserName.getText().toString(), edPassword.getText().toString());
+            } else {
+                loginPresenter.clearSharedPrefLogin();
             }
+            CurrentPrefers.getInstance().savePass(cbSave.isChecked());
             if (PermissionGrant.verify(this, new String[]{Manifest.permission.READ_PHONE_STATE}, Common.REQUEST_PERMISSION_READ_PHONE)) {
                 showLoadingDialog("Đăng nhập");
-                loginPresenter.validateInput(Singleton.getInstance().userName, Singleton.getInstance().password);
+                loginPresenter.validateInput(edUserName.getText().toString(), edPassword.getText().toString());
             }
         }
     }
@@ -125,18 +157,25 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void showTextUserPass(String userName, String pass) {
-
+        edUserName.setText(userName);
+        edPassword.setText(pass);
     }
 
     @Override
     public void showTickCheckbox(boolean isSaveLogin) {
-        cbSave.setClickable(isSaveLogin);
+        cbSave.setChecked(isSaveLogin);
+    }
+
+    @Override
+    public void showIP(String ip) {
+        tvIP.setText("Địa chỉ IP: " + ip);
     }
 
     @Override
     public void loginSuccess() {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
+        getActivity().finish();
         dismissLoadingDialog();
     }
 

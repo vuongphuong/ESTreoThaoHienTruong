@@ -44,6 +44,9 @@ public class ManagementUnitEntity implements Parcelable {
     private String NGAY_QD;
     @SerializedName("NGUOI_UYQUYEN")
     private String NGUOI_UYQUYEN;
+    public ManagementUnitEntity(){
+
+    }
 
     protected ManagementUnitEntity(Parcel in) {
         MA_DVIQLY = in.readString();

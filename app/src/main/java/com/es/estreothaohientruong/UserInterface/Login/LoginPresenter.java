@@ -4,6 +4,7 @@ import com.es.estreothaohientruong.Data.Base.BaseResponse;
 import com.es.estreothaohientruong.Data.Base.ResponseListener;
 import com.es.estreothaohientruong.Data.Request.LoginRequest;
 import com.es.estreothaohientruong.Data.Response.LoginResponse;
+import com.es.estreothaohientruong.Data.SQLiteConnection.SQLiteConnection;
 import com.es.estreothaohientruong.Helper.Common;
 import com.es.estreothaohientruong.Helper.CurrentPrefers;
 import com.es.estreothaohientruong.Helper.Singleton;
@@ -49,7 +50,7 @@ public class LoginPresenter implements ILoginPresenter,ResponseListener {
 
     @Override
     public void clearSharedPrefLogin() {
-        currentPrefers.clearAll();
+//        currentPrefers.clearAll();
     }
 
     @Override
@@ -57,6 +58,7 @@ public class LoginPresenter implements ILoginPresenter,ResponseListener {
         if (currentPrefers != null) {
             iLoginView.showTickCheckbox(currentPrefers.getSavePass());
             iLoginView.showTextUserPass(currentPrefers.getUserName(), currentPrefers.getPassword());
+            iLoginView.showIP(currentPrefers.getIP());
         }
     }
 

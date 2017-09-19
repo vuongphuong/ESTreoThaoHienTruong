@@ -12,6 +12,39 @@
     <string name="error2">Sai thông tin cấu hình.\nVui lòng kiểm tra lại hoặc liên hệ nhân viên hỗ trợ!</string>
     <string name="common_ok">Đồng ý</string>
     <string name="common_cancel">Hủy</string>
+    <string name="list_customer">Danh sách khách hàng</string>
+    <string name="list_meter_able">Danh sách công tơ treo</string>
+    <string name="list_meter_disable">Danh sách công tơ tháo</string>
+    <string name="info_customer">Thông tin khách hàng</string>
+    <string name="info_meter_able">Thông tin công tơ treo</string>
+    <string name="info_meter_disable">Thông tin công tơ tháo</string>
+    <string name="name_customer">Tên khách hàng</string>
+    <string name="address_customer">Địa chỉ</string>
+    <string name="phone_customer">Số điện thoại</string>
+    <string name="id_customer">Mã khách hàng</string>
+    <string name="id_contract">Mã hợp đồng</string>
+    <string name="current_pass">Mật khẩu cũ</string>
+    <string name="new_pass">Mật khẩu mới</string>
+    <string name="confirm_pass">Nhập lại mật khẩu</string>
+    <string name="change_pass">Đổi mật khẩu</string>
     //===========================================================
     <string name="main_font">Arial</string>
+
+    /*==========================Menu===================================*/
+    <string-array name="SlideMenuEmployees">
+        <item>Đồng bộ dữ liệu</item>
+        <item>Lịch sử đồng bộ</item>
+        <item>Trạng thái kết nối</item>
+        <item>Thống kê treo tháo</item>
+        <item>Thay đổi mật khẩu</item>
+        <item>Đăng xuất</item>
+    </string-array>
+    <array name="iconEmployee">
+        <item>@drawable/ic_cloud_download_black_36dp</item>
+        <item>@drawable/ic_sync_black_36dp</item>
+        <item>@drawable/ic_print_black_24dp</item>
+        <item>@drawable/ic_settings_bluetooth_black_24dp</item>
+        <item>@drawable/ic_vpn_key_black_24dp</item>
+        <item>@drawable/ic_power_settings_new_black_24dp</item>
+    </array>
 </resources>

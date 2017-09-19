@@ -25,5 +25,4 @@
     android:gravity="center_vertical"
     android:textColor="@color/colorWhite"
     android:lines="1"
-    android:textSize="@dimen/_20sdp"
     android:minHeight="?android:attr/listPreferredItemHeightSmall" />

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/btn_detail_white"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_10sdp"
+    android:background="@drawable/btn_detail_black"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_detail_white"
+        android:background="@drawable/btn_detail_black"
         android:orientation="vertical">
 
         <LinearLayout
@@ -21,8 +22,8 @@
 
             <TextView
                 android:id="@+id/i_customer_tvSTT"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:background="@drawable/cricle_detail"
                 android:gravity="center"
                 android:text="1"
@@ -39,27 +40,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nguyen van a"
-                    android:textSize="@dimen/_24sdp" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/i_customer_tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0976956559"
-                    android:textSize="@dimen/_20sdp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/i_customer_tvAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Đồng quang, Quốc oai, Hà Nội"
-                    android:textSize="@dimen/_20sdp" />
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/_3sdp"
-                    android:background="@color/colorBlack" />
+                    android:background="@color/button_disable_light" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,6 +82,7 @@
                             android:id="@+id/i_customer_tvMAKH"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
                             android:text="22080976208447" />
                     </LinearLayout>
 
@@ -102,6 +105,7 @@
                             android:id="@+id/i_customer_tvGCS"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
                             android:text="22080976208447" />
                     </LinearLayout>
 
@@ -111,9 +115,10 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/i_customer_btnDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorBlue"
+            android:background="@drawable/btn_detail_info"
             android:gravity="right|center_vertical"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/_10sdp"
@@ -124,11 +129,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/_5sdp"
+                android:textColor="@color/colorWhite"
                 android:text="Chi tiết khách hàng" />
 
             <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/ic_detail" />
         </LinearLayout>
     </LinearLayout>

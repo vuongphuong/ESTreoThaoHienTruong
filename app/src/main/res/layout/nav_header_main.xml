@@ -4,10 +4,7 @@
     android:layout_height="fill_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:paddingTop="@dimen/_40sdp"
-    android:paddingBottom="@dimen/_10sdp"
-    android:paddingLeft="@dimen/_20sdp"
-    android:paddingRight="@dimen/_20sdp"
+    android:padding="@dimen/_20sdp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView

@@ -16,10 +16,18 @@ import com.es.estreothaohientruong.Data.Base.ResponseListener;
 import com.es.estreothaohientruong.Data.Base.errors.AuthFailureError;
 import com.es.estreothaohientruong.Data.Base.errors.ParserError;
 import com.es.estreothaohientruong.Data.Base.errors.ServerError;
+import com.es.estreothaohientruong.Data.Entities.ManagementUnitEntity;
+import com.es.estreothaohientruong.Data.Entities.ReportEntity;
+import com.es.estreothaohientruong.Data.SQLiteConnection.SQLiteConnection;
 import com.es.estreothaohientruong.Helper.AppAlertDialog;
 import com.es.estreothaohientruong.Helper.AppLog;
+import com.es.estreothaohientruong.MainActivity;
 import com.es.estreothaohientruong.R;
+import com.es.estreothaohientruong.UserInterface.Base.AdapterDelegate;
 import com.es.estreothaohientruong.UserInterface.Base.BaseFragment;
+import com.es.estreothaohientruong.UserInterface.Customer.CustomerDetailFragment;
+
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -28,13 +36,18 @@ import okhttp3.Response;
  * Created by My_PC on 9/8/2017.
  */
 
-public class PageCustomer extends BaseFragment implements ResponseListener {
+public class PageCustomer extends BaseFragment implements ResponseListener, AdapterDelegate {
     private ListView lvCustomer;
+    private AdapterPageCustomer adapterPageCustomer;
+    private ArrayList<ReportEntity> reportEntities;
+
     //region Activity Life Cycle
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        connection = SQLiteConnection.getInstance(getContext());
     }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.customer_frangment, container, false);
     }
@@ -49,8 +62,12 @@ public class PageCustomer extends BaseFragment implements ResponseListener {
 //endregion
 
     //region Init View
-    public void initialize(View view){
-      lvCustomer = (ListView) view.findViewById(R.id.f_customer_lvCustomer);
+    public void initialize(View view) {
+        reportEntities = new ArrayList<>();
+        MainActivity.tvTitleToolbar.setText("Thông tin khách hàng");
+        lvCustomer = (ListView) view.findViewById(R.id.f_customer_lvCustomer);
+        adapterPageCustomer = new AdapterPageCustomer(getContext(),connection.getAllDataBBanTThao(), this);
+        lvCustomer.setAdapter(adapterPageCustomer);
     }
 
     @Override
@@ -78,6 +95,16 @@ public class PageCustomer extends BaseFragment implements ResponseListener {
             AppAlertDialog.showAlertDialogGreen(getContext(), getString(R.string.error1), Color.RED, getString(R.string.error2), Color.WHITE, getString(R.string.common_ok), Color.RED);
         }
         dismissLoadingDialog();
+    }
+
+    @Override
+    public void onClickItemAdapter(View v) {
+        if (v.getId() == R.id.i_customer_btnDetail) {
+            ReportEntity reportEntity = (ReportEntity) v.getTag();
+            CustomerDetailFragment customerDetailFragment = new CustomerDetailFragment();
+            customerDetailFragment.setReportEntity(reportEntity);
+            mNativeManager.addFragment(customerDetailFragment, "CustomerDetail");
+        }
     }
 
 

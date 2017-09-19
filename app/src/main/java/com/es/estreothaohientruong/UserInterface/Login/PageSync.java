@@ -1,8 +1,11 @@
 package com.es.estreothaohientruong.UserInterface.Login;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.es.estreothaohientruong.Data.Base.BaseResponse;
@@ -22,10 +26,12 @@ import com.es.estreothaohientruong.Data.Base.errors.ServerError;
 import com.es.estreothaohientruong.Data.Entities.ManagementUnitEntity;
 import com.es.estreothaohientruong.Data.Request.ManagementUnitRequest;
 import com.es.estreothaohientruong.Data.Response.GetMnUnitResponse;
+import com.es.estreothaohientruong.Data.SQLiteConnection.SQLiteConnection;
 import com.es.estreothaohientruong.Helper.AppAlertDialog;
 import com.es.estreothaohientruong.Helper.AppLog;
 import com.es.estreothaohientruong.Helper.Common;
 import com.es.estreothaohientruong.Helper.CurrentPrefers;
+import com.es.estreothaohientruong.Helper.PermissionGrant;
 import com.es.estreothaohientruong.Helper.Singleton;
 import com.es.estreothaohientruong.R;
 import com.es.estreothaohientruong.UserInterface.Base.BaseFragment;
@@ -40,10 +46,8 @@ import okhttp3.Response;
  */
 
 public class PageSync extends BaseFragment implements View.OnClickListener, ResponseListener {
-    private Button btnSync;
+    private LinearLayout btnSync;
     private EditText edIP;
-    private Spinner spMnUnit;
-    private ArrayList<ManagementUnitEntity> managementUnitEntities;
 
     //region Activity Life Cycle
     @Override
@@ -59,30 +63,16 @@ public class PageSync extends BaseFragment implements View.OnClickListener, Resp
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
-        managementUnitEntities = new ArrayList<>();
     }
 
 //endregion
 
     //region Init View
     public void initialize(View view) {
-        btnSync = (Button) view.findViewById(R.id.page_sync_btnSync);
+        btnSync = (LinearLayout) view.findViewById(R.id.page_sync_btnSync);
         edIP = (EditText) view.findViewById(R.id.page_sync_et_ip);
-        spMnUnit = (Spinner) view.findViewById(R.id.page_sync_spSync);
         btnSync.setOnClickListener(this);
-        spMnUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Singleton.getInstance().IdCompany = managementUnitEntities.get(position).getMA_DVIQLY();
-                CurrentPrefers.getInstance().saveIDCompany(managementUnitEntities.get(position).getMA_DVIQLY());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
+        edIP.setText(CurrentPrefers.getInstance().getIP());
     }
 
     private void GetDonviQuanLy() {
@@ -113,15 +103,14 @@ public class PageSync extends BaseFragment implements View.OnClickListener, Resp
     public void onResponse(int requestId, BaseResponse response) {
         if (requestId == Common.REQUEST_GET_MN_UNIT) {
             GetMnUnitResponse mnUnitResponse = (GetMnUnitResponse) response;
-            managementUnitEntities.clear();
-            managementUnitEntities.addAll(mnUnitResponse.getManagementUnitEntities());
-            ArrayAdapter<ManagementUnitEntity> adapterDvi = new ArrayAdapter<ManagementUnitEntity>(getContext(), R.layout.simple_item_list, managementUnitEntities);
-            spMnUnit.setAdapter(adapterDvi);
             CurrentPrefers.getInstance().saveIP(edIP.getText().toString());
-            for (ManagementUnitEntity managementUnitEntity:managementUnitEntities){
+            connection = SQLiteConnection.getInstance(getContext());
+            connection.deleteAllDataDVIQLY();
+            for (ManagementUnitEntity managementUnitEntity:mnUnitResponse.getManagementUnitEntities()){
                 connection.insertDataDVIQLY(managementUnitEntity.getMA_DVIQLY(),managementUnitEntity.getTEN_DVIQLY());
             }
-
+            LoginFragment loginFragment = new LoginFragment();
+            mNativeManager.switchPage(loginFragment,"Login");
         }
         dismissLoadingDialog();
     }

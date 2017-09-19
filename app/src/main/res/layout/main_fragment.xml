@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/f_main_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:background="@color/colorPrimary"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/button_disable_light"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorWhite"
+        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+        app:tabTextColor="@color/button_disable_light" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/f_main_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_weight="1">
-
-        <android.support.v4.view.PagerTabStrip
-            android:id="@+id/f_main_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite" />
-    </android.support.v4.view.ViewPager>
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,23 +41,25 @@
             android:padding="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:src="@drawable/ic_content_copy_white_36dp" />
 
             <Button
+                android:id="@+id/f_main_btnDataManagement"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:background="@color/colorPrimary"
                 android:text="@string/data_management"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_12sdp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/f_main_llDataVerify"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:gravity="center"
@@ -59,17 +67,20 @@
             android:padding="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:src="@drawable/ic_visibility_white_24dp" />
 
             <Button
+                android:id="@+id/f_main_btnDataVerify"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:background="@color/colorPrimary"
                 android:text="@string/data_verify"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

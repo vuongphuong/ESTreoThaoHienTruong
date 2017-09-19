@@ -40,7 +40,25 @@ public class ReportEntity implements Parcelable {
     private String TRANG_THAI;
     @SerializedName("GHI_CHU")
     private String GHI_CHU;
+    @SerializedName("LOAI_BBAN")
+    private String LOAI_BBAN;
+    @SerializedName("TEN_KHANG")
+    private String TEN_KHANG;
+    @SerializedName("DCHI_HDON")
+    private String DCHI_HDON;
+    @SerializedName("DTHOAI")
+    private String DTHOAI;
+    @SerializedName("MA_GCS_CTO")
+    private String MA_GCS_CTO;
+    @SerializedName("MA_TRAM")
+    private String MA_TRAM;
+    @SerializedName("MA_HDONG")
+    private String MA_HDONG;
+    @SerializedName("LY_DO_TREO_THAO")
+    private String LY_DO_TREO_THAO;
 
+    public ReportEntity() {
+    }
 
     protected ReportEntity(Parcel in) {
         ID_BBAN_TRTH = in.readString();
@@ -58,6 +76,14 @@ public class ReportEntity implements Parcelable {
         SO_BBAN = in.readString();
         TRANG_THAI = in.readString();
         GHI_CHU = in.readString();
+        LOAI_BBAN = in.readString();
+        TEN_KHANG = in.readString();
+        DCHI_HDON = in.readString();
+        DTHOAI = in.readString();
+        MA_GCS_CTO = in.readString();
+        MA_TRAM = in.readString();
+        MA_HDONG = in.readString();
+        LY_DO_TREO_THAO = in.readString();
     }
 
     public static final Creator<ReportEntity> CREATOR = new Creator<ReportEntity>() {
@@ -192,6 +218,70 @@ public class ReportEntity implements Parcelable {
         this.GHI_CHU = GHI_CHU;
     }
 
+    public String getLOAI_BBAN() {
+        return LOAI_BBAN;
+    }
+
+    public void setLOAI_BBAN(String LOAI_BBAN) {
+        this.LOAI_BBAN = LOAI_BBAN;
+    }
+
+    public String getTEN_KHANG() {
+        return TEN_KHANG;
+    }
+
+    public void setTEN_KHANG(String TEN_KHANG) {
+        this.TEN_KHANG = TEN_KHANG;
+    }
+
+    public String getDCHI_HDON() {
+        return DCHI_HDON;
+    }
+
+    public void setDCHI_HDON(String DCHI_HDON) {
+        this.DCHI_HDON = DCHI_HDON;
+    }
+
+    public String getDTHOAI() {
+        return DTHOAI;
+    }
+
+    public void setDTHOAI(String DTHOAI) {
+        this.DTHOAI = DTHOAI;
+    }
+
+    public String getMA_GCS_CTO() {
+        return MA_GCS_CTO;
+    }
+
+    public void setMA_GCS_CTO(String MA_GCS_CTO) {
+        this.MA_GCS_CTO = MA_GCS_CTO;
+    }
+
+    public String getMA_TRAM() {
+        return MA_TRAM;
+    }
+
+    public void setMA_TRAM(String MA_TRAM) {
+        this.MA_TRAM = MA_TRAM;
+    }
+
+    public String getMA_HDONG() {
+        return MA_HDONG;
+    }
+
+    public void setMA_HDONG(String MA_HDONG) {
+        this.MA_HDONG = MA_HDONG;
+    }
+
+    public String getLY_DO_TREO_THAO() {
+        return LY_DO_TREO_THAO;
+    }
+
+    public void setLY_DO_TREO_THAO(String LY_DO_TREO_THAO) {
+        this.LY_DO_TREO_THAO = LY_DO_TREO_THAO;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -214,5 +304,13 @@ public class ReportEntity implements Parcelable {
         dest.writeString(SO_BBAN);
         dest.writeString(TRANG_THAI);
         dest.writeString(GHI_CHU);
+        dest.writeString(LOAI_BBAN);
+        dest.writeString(TEN_KHANG);
+        dest.writeString(DCHI_HDON);
+        dest.writeString(DTHOAI);
+        dest.writeString(MA_GCS_CTO);
+        dest.writeString(MA_TRAM);
+        dest.writeString(MA_HDONG);
+        dest.writeString(LY_DO_TREO_THAO);
     }
 }

@@ -5,46 +5,52 @@ package com.es.estreothaohientruong.Data.SQLiteConnection;
  */
 public class ConstantVariables {
 
-    public static final String PROGRAM_PATH = "/TTHT/";
-    public static final String PROGRAM_DB_PATH = "/TTHT/DB/";
-    public static final String PROGRAM_DB_BACKUP_PATH = "/TTHT/DB/BACKUP/";
     public static final String PROGRAM_PHOTOS_PATH = "/TTHT/PHOTOS/";
     public static final String CFG_FILENAME = "TTHT.cfg";
     public static final String[] CFG_COLUMN = {"IP_SV_1", "VERSION"};
 
     public final static int MENU_CHI_TIET = 0;
-    //    public final static int MENU_NHAN_BBAN = 1;
-//    public final static int MENU_GUI_BBAN = 2;
     public final static int MENU_GHI_CHU = 1;
     public final static int MENU_XOA_CS = 2;
 
     public static final String NAMESPACE = "http://tempuri.org/";
 
     public static final String DATABASE_NAME = "TTHT.s3db";
-    public static final int DATABASE_VERSION = 1;
+    static final int DATABASE_VERSION = 1;
 
-    public static final String TABLE_NAME_DVIQLY = "D_DVIQLY";
-    public static final String CREATE_TABLE_DVIQLY = "CREATE TABLE " + TABLE_NAME_DVIQLY + "(ID INTEGER PRIMARY KEY NOT NULL, " +
+    static final String TABLE_NAME_DVIQLY = "D_DVIQLY";
+    static final String CREATE_TABLE_DVIQLY = "CREATE TABLE " + TABLE_NAME_DVIQLY + "(ID INTEGER PRIMARY KEY NOT NULL, " +
             "MA_DVIQLY TEXT, " + "TEN_DVIQLY TEXT)";
 
-    public static final String TABLE_NAME_TRAM = "TRAM";
-    public static final String CREATE_TABLE_TRAM = "CREATE TABLE " + TABLE_NAME_TRAM + "(ID_TRAM INTEGER PRIMARY KEY NOT NULL, "+
+    static final String TABLE_NAME_TRAM = "TRAM";
+    static final String CREATE_TABLE_TRAM = "CREATE TABLE " + TABLE_NAME_TRAM + "(ID_TRAM INTEGER PRIMARY KEY NOT NULL, " +
             "MA_TRAM TEXT, " + "MA_DVIQLY TEXT, " + "TEN_TRAM TEXT, " + "LOAI_TRAM TEXT, " + "CSUAT_TRAM INTEGER, " + "MA_CAP_DA TEXT, " + "MA_CAP_DA_RA TEXT, " + "DINH_DANH TEXT" + ")";
 
-    public static final String TABLE_NAME_REMEMBER = "D_REMEMBER";
-    public static final String CREATE_TABLE_REMEMBER = "CREATE TABLE " + TABLE_NAME_REMEMBER + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+    static final String TABLE_NAME_REMEMBER = "D_REMEMBER";
+    static final String CREATE_TABLE_REMEMBER = "CREATE TABLE " + TABLE_NAME_REMEMBER + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "MA_DVIQLY TEXT, " + "USERNAME TEXT, " + "PASSWORD TEXT)";
 
-    public static final String TABLE_NAME_BBAN_CONGTO = "BBAN_CONGTO";
-    public static final String CREATE_TABLE_BBAN_CONGTO = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_BBAN_CONGTO
+    /**
+     * NGAY_THANG :   là ngày giờ đồng bộ
+     * TINH_TRANG :   là thành công hoặc lỗi
+     * TRANG_THAI :   là lấy về hay đầy lên
+     */
+
+    static final String TABLE_NAME_HISTORY_SYNC = "D_HISTORY";
+    static final String CREATE_TABLE_HISTORY_SYNC = "CREATE TABLE " + TABLE_NAME_HISTORY_SYNC + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "SO_BB TEXT, " + "SO_CTO_TREO TEXT, " + "SO_CTO_THAO TEXT, " + "SO_BB_TU_TI TEXT, " + "SO_TU TEXT, " + "SO_TI TEXT, " + "SO_TRAM TEXT," +
+            "NGAY_THANG TEXT, " + "TINH_TRANG TEXT, " + "TRANG_THAI TEXT)";
+
+    static final String TABLE_NAME_BBAN_CONGTO = "BBAN_CONGTO";
+    static final String CREATE_TABLE_BBAN_CONGTO = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_BBAN_CONGTO
             + "(MA_DVIQLY TEXT NOT NULL, " + "ID_BBAN_TRTH INTEGER NOT NULL, " + "MA_DDO TEXT, " + "SO_BBAN TEXT, "
             + "NGAY_TRTH TEXT, " + "MA_NVIEN TEXT, " + "MA_LDO TEXT, " + "NGAY_TAO TEXT, " + "NGUOI_TAO TEXT, "
             + "NGAY_SUA TEXT, " + "NGUOI_SUA TEXT, " + "MA_CNANG TEXT, " + "MA_YCAU_KNAI TEXT, " + "TRANG_THAI INTEGER, "
             + "GHI_CHU TEXT, " + "ID_BBAN_CONGTO INTEGER, " + "LOAI_BBAN TEXT, " + "TEN_KHANG TEXT, " + "DCHI_HDON TEXT, "
             + "DTHOAI TEXT, " + "MA_GCS_CTO TEXT, " + "MA_TRAM TEXT, " + "MA_HDONG TEXT, " + "LY_DO_TREO_THAO TEXT)";
 
-    public static final String TABLE_NAME_DETAIL_CONGTO = "DETAIL_CONGTO";
-    public static final String CREATE_TABLE_DETAIL_CONGTO = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_DETAIL_CONGTO
+    static final String TABLE_NAME_DETAIL_CONGTO = "DETAIL_CONGTO";
+    static final String CREATE_TABLE_DETAIL_CONGTO = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_DETAIL_CONGTO
             + "("
             + "MA_DVIQLY TEXT NOT NULL, "
             + "ID_BBAN_TRTH INTEGER NOT NULL, "
@@ -101,22 +107,22 @@ public class ConstantVariables {
             + "CAP_CX_SAULAP_TUTI INTEGER, "
             + "TRANG_THAI_DU_LIEU INTEGER)";
 
-    public static final String TABLE_NAME_CONGTO_TI = "CONGTO_TI";
-    public static final String CREATE_TABLE_CONGTO_TI = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_CONGTO_TI
+    static final String TABLE_NAME_CONGTO_TI = "CONGTO_TI";
+    static final String CREATE_TABLE_CONGTO_TI = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_CONGTO_TI
             + "(MA_DVIQLY TEXT NOT NULL, " + "ID_BBAN_TRTH INTEGER NOT NULL, " + "MA_TI TEXT, " + "SO_TI TEXT, "
             + "LAN INTEGER, " + "MA_BDONG TEXT, " + "NGAY_BDONG TEXT, " + "MA_CLOAI TEXT, " + "TYSO_DAU TEXT, "
             + "NGAY_TAO TEXT, " + "NGUOI_TAO TEXT, " + "NGAY_SUA TEXT, " + "NGUOI_SUA TEXT," + "MA_CNANG TEXT, "
             + "ID_CONGTO_TI INTEGER)";
 
-    public static final String TABLE_NAME_CONGTO_TU = "CONGTO_TU";
-    public static final String CREATE_TABLE_CONGTO_TU = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_CONGTO_TU
+    static final String TABLE_NAME_CONGTO_TU = "CONGTO_TU";
+    static final String CREATE_TABLE_CONGTO_TU = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_CONGTO_TU
             + "(MA_DVIQLY TEXT NOT NULL, " + "ID_BBAN_TRTH INTEGER NOT NULL, " + "MA_TU TEXT, " + "SO_TU TEXT, "
             + "LAN INTEGER, " + "MA_BDONG TEXT, " + "NGAY_BDONG TEXT, " + "MA_CLOAI TEXT, " + "TYSO_DAU TEXT, "
             + "NGAY_TAO TEXT, " + "NGUOI_TAO TEXT, " + "NGAY_SUA TEXT, " + "NGUOI_SUA TEXT," + "MA_CNANG TEXT, "
             + "ID_CONGTO_TU INTEGER)";
 
-    public static final String TABLE_NAME_ANH = "ANH";
-    public static final String CREATE_TABLE_ANH = "CREATE TABLE " + TABLE_NAME_ANH + "(ID INTEGER PRIMARY KEY NOT NULL, "
+    static final String TABLE_NAME_ANH = "ANH";
+    static final String CREATE_TABLE_ANH = "CREATE TABLE " + TABLE_NAME_ANH + "(ID INTEGER PRIMARY KEY NOT NULL, "
             + "ID_CHITIET_TUTI INTEGER, "
             + "TEN_ANH TEXT , "
             + "MA_DVIQLY TEXT, "
@@ -125,11 +131,11 @@ public class ConstantVariables {
             + "TYPE INTEGER, "
             + "CREATE_DAY TEXT)";
 
-    public static final String TABLE_NAME_LOAI_CONGTO = "LOAI_CONG_TO";
-    public static final String CREATE_TABLE_LOAI_CONGTO =
+    static final String TABLE_NAME_LOAI_CONGTO = "LOAI_CONG_TO";
+    static final String CREATE_TABLE_LOAI_CONGTO =
             "CREATE TABLE "
                     + TABLE_NAME_LOAI_CONGTO
-                    +"(MA_CLOAI TEXT PRIMARY KEY NOT NULL, "
+                    + "(MA_CLOAI TEXT PRIMARY KEY NOT NULL, "
                     + "TEN_LOAI_CTO TEXT NOT NULL, "
                     + "MO_TA TEXT, "
                     + "SO_PHA TEXT, "
@@ -147,11 +153,11 @@ public class ConstantVariables {
                     + "PTHUC_DOXA TEXT, "
                     + "TEN_NUOC TEXT)";
 
-    public static final String TABLE_NAME_BBAN_TU_TI = "BBAN_TU_TI";
-    public static final String CREATE_TABLE_BBAN_TU_TI =
+    static final String TABLE_NAME_BBAN_TU_TI = "BBAN_TU_TI";
+    static final String CREATE_TABLE_BBAN_TU_TI =
             "CREATE TABLE IF NOT EXISTS "
                     + TABLE_NAME_BBAN_TU_TI
-                    +"(ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "MA_DVIQLY TEXT, "
                     + "ID_BBAN_TUTI INTEGER, "
                     + "MA_DDO TEXT, "
@@ -170,11 +176,11 @@ public class ConstantVariables {
                     + "NVIEN_KCHI TEXT)";
 
 
-    public static final String TABLE_NAME_CHITIET_TU_TI = "CHITIET_TU_TI";
-    public static final String CREATE_TABLE_CHITIET_TU_TI =
+    static final String TABLE_NAME_CHITIET_TU_TI = "CHITIET_TU_TI";
+    static final String CREATE_TABLE_CHITIET_TU_TI =
             "CREATE TABLE IF NOT EXISTS "
                     + TABLE_NAME_CHITIET_TU_TI
-                    +"(ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "MA_CLOAI TEXT, "
                     + "LOAI_TU_TI TEXT, "
                     + "MO_TA TEXT, "
@@ -198,7 +204,4 @@ public class ConstantVariables {
                     + "TYSO_BIEN TEXT, "
                     + "MA_BDONG TEXT, "
                     + "MA_DVIQLY TEXT)";
-
-
-
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/_12sdp"
+    android:paddingLeft="@dimen/_12sdp"
+    android:paddingRight="@dimen/_5sdp"
+    android:paddingTop="@dimen/_12sdp">
+
+    <ImageView
+        android:id="@+id/it_list_nav_image"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/it_list_nav_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_15sdp"
+        android:text="hiccccccccccccccccccccccccc"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_20sdp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:id="@+id/it_list_nav_ivPrint"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:background="@drawable/ic_print_black_24dp" />
+
+    <ImageView
+        android:id="@+id/it_list_nav_ivBluetooth"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:background="@drawable/ic_settings_bluetooth_black_24dp" />
+
+</LinearLayout>

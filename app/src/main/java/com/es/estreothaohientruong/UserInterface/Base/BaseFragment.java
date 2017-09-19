@@ -1,5 +1,6 @@
 package com.es.estreothaohientruong.UserInterface.Base;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.es.estreothaohientruong.App;
-import com.es.estreothaohientruong.Data.Response.Api;
+import com.es.estreothaohientruong.Data.Api;
 import com.es.estreothaohientruong.Data.SQLiteConnection.SQLiteConnection;
+import com.es.estreothaohientruong.Helper.Common;
+import com.es.estreothaohientruong.Helper.PermissionGrant;
 
 
 /**
@@ -37,7 +40,12 @@ public class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApi = App.get().getApi();
-        connection = App.get().getConnection();
+        if (!PermissionGrant.checkSelfPermission(getContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE})) {
+            PermissionGrant.verify(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Common.READ_EXTERNAL_STORAGE);
+        }
+        if (!PermissionGrant.checkSelfPermission(getContext(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
+            PermissionGrant.verify(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Common.REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE);
+        }
     }
 
     @Override
@@ -54,6 +62,7 @@ public class BaseFragment extends Fragment {
     public void onStart() {
         super.onStart();
         mNativeManager.syncActionBar();
+        hideKeyboard();
     }
 
     @Override

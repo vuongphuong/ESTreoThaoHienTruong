@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.inputmethod.InputMethodManager;
 
+import com.es.estreothaohientruong.Data.SQLiteConnection.SQLiteConnection;
 import com.es.estreothaohientruong.Helper.AppLog;
 
 /**

@@ -31,8 +31,9 @@ public class GetMnUnitResponse extends BaseResponse {
 //        ManagementUnitEntity managementUnitEntity = gson.fromJson(data.body().string(),ManagementUnitEntity.class);
 //        managementUnitEntities = new ArrayList<>();
 //        managementUnitEntities.add(managementUnitEntity);
-         Type type= new TypeToken<ArrayList<ManagementUnitEntity>>(){}.getType();
-         managementUnitEntities = gson.fromJson(data.body().string(),type);
+        Type type = new TypeToken<ArrayList<ManagementUnitEntity>>() {
+        }.getType();
+        managementUnitEntities = gson.fromJson(data.body().string(), type);
     }
 
     public ArrayList<ManagementUnitEntity> getManagementUnitEntities() {

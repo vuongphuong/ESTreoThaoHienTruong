@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    android:gravity="center"
+    android:padding="@dimen/_10sdp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_5sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:text="@string/current_pass" />
+
+    <EditText
+        android:id="@+id/f_change_pass_edCurrentPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:fontFamily="@string/main_font"
+        android:inputType="textPassword"
+        android:background="@drawable/detail_et2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_5sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:text="@string/new_pass" />
+
+    <EditText
+        android:id="@+id/f_change_pass_edNewPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:fontFamily="@string/main_font"
+        android:inputType="textPassword"
+        android:background="@drawable/detail_et2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_5sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:text="@string/confirm_pass" />
+
+    <EditText
+        android:id="@+id/f_change_pass_edConfirmPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:fontFamily="@string/main_font"
+        android:inputType="textPassword"
+        android:background="@drawable/detail_et2" />
+    <CheckBox
+        android:id="@+id/f_change_pass_cbShowPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hiển thị mật khẩu"
+        android:textColor="@color/button_disable_dark"/>
+
+    <Button
+        android:id="@+id/f_change_pass_btnChangePass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@drawable/btn_detail_orange"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorWhite"
+        android:paddingLeft="@dimen/_20sdp"
+        android:paddingRight="@dimen/_20sdp"
+        android:text="@string/change_pass" />
+
+</LinearLayout>

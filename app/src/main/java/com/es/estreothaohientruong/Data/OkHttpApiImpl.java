@@ -1,4 +1,4 @@
-package com.es.estreothaohientruong.Data.Response;
+package com.es.estreothaohientruong.Data;
 
 
 import com.es.estreothaohientruong.Data.Base.BaseRequest;
@@ -7,7 +7,7 @@ import com.es.estreothaohientruong.Data.Base.ResponseListener;
 import com.es.estreothaohientruong.Data.Request.LoginRequest;
 import com.es.estreothaohientruong.Data.Request.ManagementUnitRequest;
 import com.es.estreothaohientruong.Data.Request.ReportRequest;
-import com.es.estreothaohientruong.Data.Request.SubtationRequest;
+import com.es.estreothaohientruong.Data.Request.SubstationRequest;
 
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -49,7 +49,7 @@ public class OkHttpApiImpl implements Api {
     }
 
     @Override
-    public void getSubtation(int requestId, SubtationRequest subtationRequest, ResponseListener listener) {
-        callApi(requestId,subtationRequest,listener);
+    public void getSubtation(int requestId, SubstationRequest substationRequest, ResponseListener listener) {
+        callApi(requestId, substationRequest,listener);
     }
 }

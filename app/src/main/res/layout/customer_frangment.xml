@@ -8,6 +8,9 @@
         android:id="@+id/f_customer_lvCustomer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="@dimen/_1sdp"/>
+        android:background="@color/colorWhite"
+        android:divider="@color/colorWhite"
+        android:dividerHeight="@dimen/_15sdp"
+        android:padding="@dimen/_10sdp" />
 
 </LinearLayout>

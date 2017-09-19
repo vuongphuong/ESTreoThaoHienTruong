@@ -7,6 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 
+import com.es.estreothaohientruong.Data.Entities.ManagementUnitEntity;
+import com.es.estreothaohientruong.Data.Entities.ReportEntity;
+import com.es.estreothaohientruong.Data.Entities.SubstationEntity;
+import com.es.estreothaohientruong.Data.Entities.SyncHistoryEntity;
+import com.es.estreothaohientruong.Helper.Common;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +28,8 @@ public class SQLiteConnection extends SQLiteOpenHelper {
 
     //region Khởi tạo
     private SQLiteConnection(Context context) {
-        super(context, Environment.getExternalStorageDirectory() + ConstantVariables.PROGRAM_DB_PATH + ConstantVariables.DATABASE_NAME, null, ConstantVariables.DATABASE_VERSION);
-        SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + ConstantVariables.PROGRAM_DB_PATH + ConstantVariables.DATABASE_NAME, null);
+        super(context, Environment.getExternalStorageDirectory() + Common.PROGRAM_DB_PATH + Common.DATABASE_NAME, null, ConstantVariables.DATABASE_VERSION);
+        SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + Common.PROGRAM_DB_PATH + Common.DATABASE_NAME, null);
     }
 
     @Override
@@ -47,6 +53,7 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         db.execSQL(ConstantVariables.CREATE_TABLE_DVIQLY);
         db.execSQL(ConstantVariables.CREATE_TABLE_TRAM);
         db.execSQL(ConstantVariables.CREATE_TABLE_REMEMBER);
+        db.execSQL(ConstantVariables.CREATE_TABLE_HISTORY_SYNC);
         db.execSQL(ConstantVariables.CREATE_TABLE_BBAN_CONGTO);
         db.execSQL(ConstantVariables.CREATE_TABLE_DETAIL_CONGTO);
         db.execSQL(ConstantVariables.CREATE_TABLE_CONGTO_TI);
@@ -63,6 +70,7 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + ConstantVariables.TABLE_NAME_DVIQLY);
         db.execSQL("DROP TABLE IF EXISTS " + ConstantVariables.TABLE_NAME_TRAM);
         db.execSQL("DROP TABLE IF EXISTS " + ConstantVariables.TABLE_NAME_REMEMBER);
+        db.execSQL("DROP TABLE IF EXISTS " + ConstantVariables.TABLE_NAME_HISTORY_SYNC);
         db.execSQL("DROP TABLE IF EXISTS " + ConstantVariables.TABLE_NAME_BBAN_CONGTO);
         db.execSQL("DROP TABLE IF EXISTS " + ConstantVariables.TABLE_NAME_DETAIL_CONGTO);
         db.execSQL("DROP TABLE IF EXISTS " + ConstantVariables.TABLE_NAME_CONGTO_TI);
@@ -91,14 +99,17 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         return database.delete(ConstantVariables.TABLE_NAME_DVIQLY, null, null);
     }
 
-    public List<String> getDataDVIQLY() {
+    public ArrayList<ManagementUnitEntity> getDataDVIQLY() {
         database = this.getReadableDatabase();
         String strQuery = "SELECT * FROM " + ConstantVariables.TABLE_NAME_DVIQLY;
         Cursor c = database.rawQuery(strQuery, null);
-        List<String> list_dviqly = new ArrayList<String>();
+        ArrayList<ManagementUnitEntity> list_dviqly = new ArrayList<ManagementUnitEntity>();
         if (c.moveToFirst()) {
             do {
-                list_dviqly.add(new StringBuilder(c.getString(1)).append(" - ").append(c.getString(2)).toString());
+                ManagementUnitEntity managementUnitEntity = new ManagementUnitEntity();
+                managementUnitEntity.setMA_DVIQLY(c.getString(1));
+                managementUnitEntity.setTEN_DVIQLY(c.getString(2));
+                list_dviqly.add(managementUnitEntity);
             } while (c.moveToNext());
         }
         return list_dviqly;
@@ -198,17 +209,17 @@ public class SQLiteConnection extends SQLiteOpenHelper {
     //endregion
 
     //region Xử lý bảng Trạm
-    public long insertDataTRAM(String MA_TRAM, String MA_DVIQLY, String TEN_TRAM, String LOAI_TRAM, String CSUAT_TRAM, String MA_CAP_DA, String MA_CAP_DA_RA, String DINH_DANH) {
+    public long insertDataTRAM(SubstationEntity substationEntity) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_TRAM", MA_TRAM);
-        values.put("MA_DVIQLY", MA_DVIQLY);
-        values.put("TEN_TRAM", TEN_TRAM);
-        values.put("LOAI_TRAM", LOAI_TRAM);
-        values.put("CSUAT_TRAM", CSUAT_TRAM);
-        values.put("MA_CAP_DA", MA_CAP_DA);
-        values.put("MA_CAP_DA_RA", MA_CAP_DA_RA);
-        values.put("DINH_DANH", DINH_DANH);
+        values.put("MA_TRAM", substationEntity.getMA_TRAM());
+        values.put("MA_DVIQLY", substationEntity.getMA_DVIQLY());
+        values.put("TEN_TRAM", substationEntity.getTEN_TRAM());
+        values.put("LOAI_TRAM", substationEntity.getLOAI_TRAM());
+        values.put("CSUAT_TRAM", substationEntity.getCSUAT_TRAM());
+        values.put("MA_CAP_DA", substationEntity.getMA_CAP_DA());
+        values.put("MA_CAP_DA_RA", substationEntity.getMA_CAP_DA_RA());
+        values.put("DINH_DANH", substationEntity.getDINH_DANH());
         return database.insert(ConstantVariables.TABLE_NAME_TRAM, null, values);
     }
 
@@ -316,40 +327,104 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         else
             return false;
     }
+
+    //endregion
+    //region Xử lý bảng lịch sử dồng bộ
+    public long insertDataSyncHistory(SyncHistoryEntity syncHistoryEntity) {
+        database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("SO_BB", syncHistoryEntity.getSO_BB());
+        values.put("SO_CTO_TREO", syncHistoryEntity.getSO_CTO_TREO());
+        values.put("SO_CTO_THAO", syncHistoryEntity.getSO_CTO_THAO());
+        values.put("SO_BB_TU_TI", syncHistoryEntity.getSO_BB_TU_TI());
+        values.put("SO_TU", syncHistoryEntity.getSO_TU());
+        values.put("SO_TI", syncHistoryEntity.getSO_TI());
+        values.put("SO_TRAM", syncHistoryEntity.getSO_TRAM());
+        values.put("NGAY_THANG", syncHistoryEntity.getNGAY_THANG());
+        values.put("TINH_TRANG", syncHistoryEntity.getTINH_TRANG());
+        values.put("TRANG_THAI", syncHistoryEntity.getTRANG_THAI());
+        long ins = database.insert(ConstantVariables.TABLE_NAME_HISTORY_SYNC, null, values);
+        database.close();
+        return ins;
+    }
+
+    public ArrayList<SyncHistoryEntity> getAllDataSyncHistory() {
+        database = this.getReadableDatabase();
+        String strQuery = "SELECT * FROM " + ConstantVariables.TABLE_NAME_HISTORY_SYNC;
+        Cursor c = database.rawQuery(strQuery, null);
+        ArrayList<SyncHistoryEntity> list_sync = new ArrayList<SyncHistoryEntity>();
+        if (c.moveToFirst()) {
+            do {
+                SyncHistoryEntity syncHistoryEntity = new SyncHistoryEntity();
+                syncHistoryEntity.setSO_BB(c.getString(1));
+                syncHistoryEntity.setSO_CTO_TREO(c.getString(2));
+                syncHistoryEntity.setSO_CTO_THAO(c.getString(3));
+                syncHistoryEntity.setSO_BB_TU_TI(c.getString(4));
+                syncHistoryEntity.setSO_TU(c.getString(5));
+                syncHistoryEntity.setSO_TI(c.getString(6));
+                syncHistoryEntity.setSO_TRAM(c.getString(7));
+                syncHistoryEntity.setNGAY_THANG(c.getString(8));
+                syncHistoryEntity.setTINH_TRANG(c.getString(9));
+                syncHistoryEntity.setTRANG_THAI(c.getString(10));
+                list_sync.add(syncHistoryEntity);
+            } while (c.moveToNext());
+        }
+        return list_sync;
+    }
+
+    public ArrayList<SyncHistoryEntity> getSendDataSyncHistory(String Trangthai) {
+        database = this.getReadableDatabase();
+        String strQuery = "SELECT TRANG_THAI FROM " + ConstantVariables.TABLE_NAME_HISTORY_SYNC + " WHERE TRANG_THAI = " + Trangthai;
+        Cursor c = database.rawQuery(strQuery, null);
+        ArrayList<SyncHistoryEntity> list_sync = new ArrayList<SyncHistoryEntity>();
+        if (c.moveToFirst()) {
+            do {
+                SyncHistoryEntity syncHistoryEntity = new SyncHistoryEntity();
+                syncHistoryEntity.setSO_BB(c.getString(1));
+                syncHistoryEntity.setSO_CTO_TREO(c.getString(2));
+                syncHistoryEntity.setSO_CTO_THAO(c.getString(3));
+                syncHistoryEntity.setSO_BB_TU_TI(c.getString(4));
+                syncHistoryEntity.setSO_TU(c.getString(5));
+                syncHistoryEntity.setSO_TI(c.getString(6));
+                syncHistoryEntity.setSO_TRAM(c.getString(7));
+                syncHistoryEntity.setNGAY_THANG(c.getString(8));
+                syncHistoryEntity.setTINH_TRANG(c.getString(9));
+                syncHistoryEntity.setTRANG_THAI(c.getString(10));
+                list_sync.add(syncHistoryEntity);
+            } while (c.moveToNext());
+        }
+        return list_sync;
+    }
     //endregion
 
     //region Xử lý bảng biên bản
-    public long insertDataBBanCto(String MA_DVIQLY, int ID_BBAN_TRTH, String MA_DDO, String SO_BBAN, String NGAY_TRTH, String MA_NVIEN,
-                                  String MA_LDO, String NGAY_TAO, String NGUOI_TAO, String NGAY_SUA, String NGUOI_SUA, String MA_CNANG,
-                                  String MA_YCAU_KNAI, int TRANG_THAI, String GHI_CHU, int Id_BBAN_CONGTO, String LOAI_BBAN,
-                                  String TEN_KHANG, String DCHI_HDON, String DTHOAI, String MA_GCS_CTO, String MA_TRAM, String MA_HDONG,
-                                  String LY_DO_TREO_THAO) {
+    public long insertDataBBanCto(String MA_DVIQLY, ReportEntity reportEntity) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MA_DVIQLY", MA_DVIQLY);
-        values.put("ID_BBAN_TRTH", ID_BBAN_TRTH);
-        values.put("MA_DDO", MA_DDO);
-        values.put("SO_BBAN", SO_BBAN);
-        values.put("NGAY_TRTH", NGAY_TRTH);
-        values.put("MA_NVIEN", MA_NVIEN);
-        values.put("MA_LDO", MA_LDO);
-        values.put("NGAY_TAO", NGAY_TAO);
-        values.put("NGUOI_TAO", NGUOI_TAO);
-        values.put("NGAY_SUA", NGAY_SUA);
-        values.put("NGUOI_SUA", NGUOI_SUA);
-        values.put("MA_CNANG", MA_CNANG);
-        values.put("MA_YCAU_KNAI", MA_YCAU_KNAI);
-        values.put("TRANG_THAI", TRANG_THAI);
-        values.put("GHI_CHU", GHI_CHU);
-        values.put("ID_BBAN_CONGTO", Id_BBAN_CONGTO);
-        values.put("LOAI_BBAN", LOAI_BBAN);
-        values.put("TEN_KHANG", TEN_KHANG);
-        values.put("DCHI_HDON", DCHI_HDON);
-        values.put("DTHOAI", DTHOAI);
-        values.put("MA_GCS_CTO", MA_GCS_CTO);
-        values.put("MA_TRAM", MA_TRAM);
-        values.put("MA_HDONG", MA_HDONG);
-        values.put("LY_DO_TREO_THAO", LY_DO_TREO_THAO);
+        values.put("ID_BBAN_TRTH", reportEntity.getID_BBAN_TRTH());
+        values.put("MA_DDO", reportEntity.getMA_DDO());
+        values.put("SO_BBAN", reportEntity.getSO_BBAN());
+        values.put("NGAY_TRTH", reportEntity.getNGAY_TRTH());
+        values.put("MA_NVIEN", reportEntity.getMA_NVIEN());
+        values.put("MA_LDO", reportEntity.getMA_LDO());
+        values.put("NGAY_TAO", reportEntity.getNGAY_TAO());
+        values.put("NGUOI_TAO", reportEntity.getNGAY_TAO());
+        values.put("NGAY_SUA", reportEntity.getNGAY_SUA());
+        values.put("NGUOI_SUA", reportEntity.getNGAY_SUA());
+        values.put("MA_CNANG", reportEntity.getMA_CNANG());
+        values.put("MA_YCAU_KNAI", reportEntity.getMA_YCAU_KNAI());
+        values.put("TRANG_THAI", reportEntity.getTRANG_THAI());
+        values.put("GHI_CHU", reportEntity.getGHI_CHU());
+        values.put("ID_BBAN_CONGTO", reportEntity.getID_BBAN_TRTH());
+        values.put("LOAI_BBAN", reportEntity.getLOAI_BBAN());
+        values.put("TEN_KHANG", reportEntity.getTEN_KHANG());
+        values.put("DCHI_HDON", reportEntity.getDCHI_HDON());
+        values.put("DTHOAI", reportEntity.getDTHOAI());
+        values.put("MA_GCS_CTO", reportEntity.getMA_GCS_CTO());
+        values.put("MA_TRAM", reportEntity.getMA_TRAM());
+        values.put("MA_HDONG", reportEntity.getMA_HDONG());
+        values.put("LY_DO_TREO_THAO", reportEntity.getLY_DO_TREO_THAO());
         long ins = database.insert(ConstantVariables.TABLE_NAME_BBAN_CONGTO, null, values);
         database.close();
         return ins;
@@ -386,10 +461,41 @@ public class SQLiteConnection extends SQLiteOpenHelper {
         return 0;
     }
 
-    public Cursor getAllDataBBanTThao() {
+    public ArrayList<ReportEntity> getAllDataBBanTThao() {
         database = this.getReadableDatabase();
         String strQuery = "SELECT * FROM " + ConstantVariables.TABLE_NAME_BBAN_CONGTO;
-        return database.rawQuery(strQuery, null);
+        Cursor c = database.rawQuery(strQuery, null);
+        ArrayList<ReportEntity> list_report = new ArrayList<ReportEntity>();
+        if (c.moveToFirst()) {
+            do {
+                ReportEntity reportEntity = new ReportEntity();
+                reportEntity.setMA_DVIQLY(c.getString(0));
+                reportEntity.setID_BBAN_TRTH(c.getString(1));
+                reportEntity.setMA_DDO(c.getString(2));
+                reportEntity.setSO_BBAN(c.getString(3));
+                reportEntity.setNGAY_TRTH(c.getString(4));
+                reportEntity.setMA_NVIEN(c.getString(5));
+                reportEntity.setMA_LDO(c.getString(6));
+                reportEntity.setNGAY_TAO(c.getString(7));
+                reportEntity.setNGUOI_TAO(c.getString(8));
+                reportEntity.setNGAY_SUA(c.getString(9));
+                reportEntity.setNGUOI_SUA(c.getString(10));
+                reportEntity.setMA_CNANG(c.getString(11));
+                reportEntity.setMA_YCAU_KNAI(c.getString(12));
+                reportEntity.setTRANG_THAI(String.valueOf(c.getInt(13)));
+                reportEntity.setGHI_CHU(c.getString(14));
+                reportEntity.setLOAI_BBAN(c.getString(16));
+                reportEntity.setTEN_KHANG(c.getString(17));
+                reportEntity.setDCHI_HDON(c.getString(18));
+                reportEntity.setDTHOAI(c.getString(19));
+                reportEntity.setMA_GCS_CTO(c.getString(20));
+                reportEntity.setMA_TRAM(c.getString(21));
+                reportEntity.setMA_HDONG(c.getString(22));
+                reportEntity.setLY_DO_TREO_THAO(c.getString(23));
+                list_report.add(reportEntity);
+            } while (c.moveToNext());
+        }
+        return list_report;
     }
 
     public Cursor getAllMaTramBBanTThao(String MA_DVIQLY, String MA_NVIEN) {

@@ -11,7 +11,7 @@ import okhttp3.RequestBody;
  * Created by hungh on 4/22/2017.
  */
 
-public class SubtationRequest implements BaseRequest {
+public class SubstationRequest implements BaseRequest {
     String MA_DONVI;
 
     @Override

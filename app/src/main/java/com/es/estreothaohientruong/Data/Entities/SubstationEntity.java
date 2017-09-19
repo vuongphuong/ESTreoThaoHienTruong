@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by My_PC on 9/8/2017.
  */
 
-public class SubtationEntity implements Parcelable {
+public class SubstationEntity implements Parcelable {
     @SerializedName("MA_TRAM")
     private String MA_TRAM;
     @SerializedName("MA_DVIQLY")
@@ -27,7 +27,7 @@ public class SubtationEntity implements Parcelable {
     @SerializedName("DINH_DANH")
     private String DINH_DANH;
 
-    protected SubtationEntity(Parcel in) {
+    protected SubstationEntity(Parcel in) {
         MA_TRAM = in.readString();
         MA_DVIQLY = in.readString();
         TEN_TRAM = in.readString();
@@ -102,15 +102,15 @@ public class SubtationEntity implements Parcelable {
         this.DINH_DANH = DINH_DANH;
     }
 
-    public static final Creator<SubtationEntity> CREATOR = new Creator<SubtationEntity>() {
+    public static final Creator<SubstationEntity> CREATOR = new Creator<SubstationEntity>() {
         @Override
-        public SubtationEntity createFromParcel(Parcel in) {
-            return new SubtationEntity(in);
+        public SubstationEntity createFromParcel(Parcel in) {
+            return new SubstationEntity(in);
         }
 
         @Override
-        public SubtationEntity[] newArray(int size) {
-            return new SubtationEntity[size];
+        public SubstationEntity[] newArray(int size) {
+            return new SubstationEntity[size];
         }
     };
 
